@@ -210,6 +210,75 @@ export default function App() {
     setDownloadSize(parseInt(e.target.value));
   };
 
+  // Generate shareable project URL with all settings
+  const generateProjectURL = () => {
+    // Check if window is defined (client-side only)
+    const baseURL = typeof window !== 'undefined' ? window.location.origin : '';
+    const params = new URLSearchParams();
+    
+    // Add all QR code settings as parameters
+    params.append('type', qrType);
+    params.append('content', qrContent);
+    params.append('fgColor', foregroundColor);
+    params.append('bgColor', backgroundColor);
+    params.append('size', rangeSize.toString());
+    params.append('patternStyle', patternStyle);
+    params.append('cornerStyle', cornerStyle);
+    params.append('errorCorrection', errorCorrection);
+    params.append('bgPadding', qrBackgroundPadding.toString());
+    params.append('bgBorderRadius', qrBackgroundBorderRadius.toString());
+    
+    if (logoImage) {
+      params.append('hasLogo', 'true');
+      params.append('logoPadding', logoPaddingPreset);
+      params.append('logoSize', logoSize.toString());
+    }
+    
+    return `${baseURL}/project?${params.toString()}`;
+  };
+  
+  // Generate direct QR code URL
+  const generateDirectQRURL = () => {
+    // Check if window is defined (client-side only)
+    const baseURL = typeof window !== 'undefined' ? window.location.origin : '';
+    const params = new URLSearchParams();
+    
+    // Add all QR code settings as parameters
+    params.append('type', qrType);
+    params.append('content', qrContent);
+    params.append('fgColor', foregroundColor);
+    params.append('bgColor', backgroundColor);
+    params.append('size', rangeSize.toString());
+    params.append('patternStyle', patternStyle);
+    params.append('cornerStyle', cornerStyle);
+    params.append('errorCorrection', errorCorrection);
+    params.append('bgPadding', qrBackgroundPadding.toString());
+    params.append('bgBorderRadius', qrBackgroundBorderRadius.toString());
+    
+    if (logoImage) {
+      params.append('hasLogo', 'true');
+      params.append('logoPadding', logoPaddingPreset);
+      params.append('logoSize', logoSize.toString());
+    }
+    
+    return `${baseURL}/qr?${params.toString()}`;
+  };
+
+  // Copy URL to clipboard
+  const copyToClipboard = (url: string) => {
+    // Check if navigator is defined (client-side only)
+    if (typeof navigator !== 'undefined') {
+      navigator.clipboard.writeText(url)
+        .then(() => {
+          // Could add a toast notification here
+          console.log('URL copied to clipboard');
+        })
+        .catch(err => {
+          console.error('Failed to copy URL: ', err);
+        });
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900">
       {/* Header */}
@@ -1096,6 +1165,44 @@ export default function App() {
                     <span className="text-xs text-slate-500 mb-1">JPEG</span>
                     <span className="text-sm font-medium">Download</span>
                   </button>
+                </div>
+                
+                {/* Shareable Links Section */}
+                <div className="mt-4 pt-4 border-t border-slate-200">
+                  <h4 className="text-sm font-medium text-slate-700 mb-3">Share Your QR Code</h4>
+                  
+                  {/* Project Link */}
+                  <div className="mb-3">
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs text-slate-500">Project Link</label>
+                      <button 
+                        className="text-xs text-slate-600 hover:text-slate-900 flex items-center gap-1"
+                        onClick={() => copyToClipboard(generateProjectURL())}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Copy
+                      </button>
+                    </div>
+                    <div className="flex">
+                      <input 
+                        type="text" 
+                        readOnly 
+                        value={generateProjectURL()} 
+                        className="block w-full text-xs px-3 py-2 border border-slate-300 rounded-l-md bg-slate-50 text-slate-800 truncate"
+                      />
+                      <button 
+                        className="px-3 bg-slate-100 border border-l-0 border-slate-300 rounded-r-md hover:bg-slate-200 transition-colors"
+                        onClick={() => window.open(generateProjectURL(), '_blank')}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">Share this link to let others edit this QR code with all your settings.</p>
+                  </div>
                 </div>
               </div>
             </div>
