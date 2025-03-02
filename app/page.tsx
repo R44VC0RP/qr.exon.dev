@@ -4,8 +4,43 @@ import App from "./app"
 import Image from "next/image"
 
 export const metadata: Metadata = {
-  title: "qr.exon.dev | Coming Soon",
-  description: "The last QR code creator you'll ever need",
+  title: "Free QR Code Generator | Create Custom QR Codes with Logo & Colors",
+  description: "Create custom QR codes for URL, vCard, WiFi, text, email, and more. Add your logo, choose colors, frames, and download in high quality. No sign-up required.",
+  keywords: "QR code generator, free QR code maker, custom QR codes, QR code with logo, QR code creator, QR code design, QR code for business, QR code for website, QR code for WiFi, QR code for vCard",
+  authors: [{ name: "Ryan Vogel" }],
+  creator: "Ryan Vogel",
+  publisher: "exon.dev",
+  openGraph: {
+    title: "Free QR Code Generator | Create Custom QR Codes with Logo & Colors",
+    description: "Create custom QR codes for URL, vCard, WiFi, text, email, and more. Add your logo, choose colors, frames, and download in high quality. No sign-up required.",
+    url: "https://qr.exon.dev",
+    siteName: "qr.exon.dev",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free QR Code Generator | Create Custom QR Codes with Logo & Colors",
+    description: "Create custom QR codes for URL, vCard, WiFi, text, email, and more. Add your logo, choose colors, frames, and download in high quality. No sign-up required.",
+    creator: "@ryandavogel",
+  },
+  alternates: {
+    canonical: "https://qr.exon.dev",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  category: "technology",
+  verification: {
+    google: "verification_token", // Replace with your actual Google verification token
+  },
 }
 
 export default function Home() {
