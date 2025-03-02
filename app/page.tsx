@@ -9,12 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  if (process.env.NODE_ENV === "production") {
-    return <PreLaunchLoading />
-  } 
-  else {
-    return <App />
-  }
+  return <App />
 }
 
 function PreLaunchLoading() {

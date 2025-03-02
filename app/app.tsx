@@ -1207,14 +1207,7 @@ export default function App() {
               </div>
             </div>
             
-            <div className="mt-auto pt-4 border-t border-slate-200">
-              <div className="flex items-center justify-between text-sm text-slate-500 bg-white p-2 rounded-md">
-                <span>Made with qr.exon.dev</span>
-                <Link href="/" className="text-slate-700 hover:text-slate-900 transition-colors">
-                  Home
-                </Link>
-              </div>
-            </div>
+            
           </div>
         </div>
       </main>
