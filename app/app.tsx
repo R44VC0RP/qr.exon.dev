@@ -1,23 +1,23 @@
 "use client";
 
-import { 
-  QrCode, 
-  Link as LinkIcon, 
-  Wifi, 
-  KeyRound, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Calendar, 
-  Image as ImageIcon, 
-  Sliders, 
-  Download, 
-  Share2, 
-  Eye, 
-  EyeOff, 
-  RefreshCw, 
-  Info, 
-  X, 
+import {
+  QrCode,
+  Link as LinkIcon,
+  Wifi,
+  KeyRound,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  Image as ImageIcon,
+  Sliders,
+  Download,
+  Share2,
+  Eye,
+  EyeOff,
+  RefreshCw,
+  Info,
+  X,
   Check
 } from "lucide-react";
 import Link from "next/link";
@@ -187,13 +187,13 @@ export default function App() {
         width: downloadSize,
         height: downloadSize
       });
-      
+
       // Download with the new size
       qrInstance.download({
         extension: format,
         name: 'qr-exon-dev'
       });
-      
+
       // Reset QR code size back to display size
       setTimeout(() => {
         qrInstance.update({
@@ -201,7 +201,7 @@ export default function App() {
           height: rangeSize
         });
       }, 100);
-      
+
       // Close the dropdown after download
       setIsDownloadMenuOpen(false);
     }
@@ -244,7 +244,7 @@ export default function App() {
     // Check if window is defined (client-side only)
     const baseURL = typeof window !== 'undefined' ? window.location.origin : '';
     const params = new URLSearchParams();
-    
+
     // Add all QR code settings as parameters
     params.append('type', qrType);
     params.append('content', qrContent);
@@ -256,22 +256,22 @@ export default function App() {
     params.append('errorCorrection', errorCorrection);
     params.append('bgPadding', qrBackgroundPadding.toString());
     params.append('bgBorderRadius', qrBackgroundBorderRadius.toString());
-    
+
     if (logoImage) {
       params.append('hasLogo', 'true');
       params.append('logoPadding', logoPaddingPreset);
       params.append('logoSize', logoSize.toString());
     }
-    
+
     return `${baseURL}/project?${params.toString()}`;
   };
-  
+
   // Generate direct QR code URL
   const generateDirectQRURL = () => {
     // Check if window is defined (client-side only)
     const baseURL = typeof window !== 'undefined' ? window.location.origin : '';
     const params = new URLSearchParams();
-    
+
     // Add all QR code settings as parameters
     params.append('type', qrType);
     params.append('content', qrContent);
@@ -283,13 +283,13 @@ export default function App() {
     params.append('errorCorrection', errorCorrection);
     params.append('bgPadding', qrBackgroundPadding.toString());
     params.append('bgBorderRadius', qrBackgroundBorderRadius.toString());
-    
+
     if (logoImage) {
       params.append('hasLogo', 'true');
       params.append('logoPadding', logoPaddingPreset);
       params.append('logoSize', logoSize.toString());
     }
-    
+
     return `${baseURL}/qr?${params.toString()}`;
   };
 
@@ -318,12 +318,25 @@ export default function App() {
             <div className="flex items-center gap-3">
               <Image src="/exon.png" alt="qr.exon.dev" width={32} height={32} />
               <h1 className="text-xl font-bold tracking-tight"><span className="text-[#834D96]">qr</span>.exon.dev</h1>
+              <div className="h-6 w-[1px] bg-slate-200"></div>
+              <div className="flex items-center gap-4">
+                <h1 className="text-xl font-bold tracking-tight"><span className="text-[#834D96]">qr</span>.camera</h1>
+              </div>
             </div>
-            
             <div className="flex items-center gap-4">
-              <span className="text-sm text-slate-600">
-                built by <Link href="https://exon.dev" target="_blank" className="text-[#834D96]">exon</Link>
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-slate-600">
+                  <Link href="https://trycomp.ai" target="_blank" className="text-[#834D96]">trycomp.ai</Link>'s complience management will take you to mars
+                </span>
+                <Image src="/mars.png" alt="trycomp.ai" width={20} height={20} />
+              </div>
+              {/* Do not remove trycomp.ai link - they are a sponsor and bought the domain name qr.camera */}
+              <div className="h-6 w-[1px] bg-slate-200"></div>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-slate-600">
+                  built by <Link href="https://exon.dev" target="_blank" className="text-[#834D96]">exon</Link>
+                </span>
+              </div>
             </div>
           </div>
         </header>
@@ -334,104 +347,98 @@ export default function App() {
           <div className="w-full lg:w-1/2 border-r border-slate-200 overflow-y-auto h-[calc(100vh-64px)] lg:fixed lg:left-0 lg:top-16 lg:bottom-0">
             <div className="p-6 max-w-2xl mx-auto">
               <h2 className="text-2xl font-bold mb-6">Create Your QR Code</h2>
-              
+
               {/* Content Section */}
               <div className="space-y-8 pb-12">
                 {/* QR Content Section */}
                 <section className="space-y-6">
                   <h3 className="text-lg font-semibold text-slate-800 pb-2 border-b border-slate-200">QR Code Content</h3>
-                  
+
                   {/* QR Type Selector */}
                   <div className="space-y-2">
                     <label className="block text-sm font-medium text-slate-700">QR Code Type</label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      <button 
+                      <button
                         onClick={() => {
                           setQrType("url");
                           setQrContent("https://exon.dev");
                         }}
-                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                          qrType === "url" 
-                            ? "bg-slate-100 border-slate-300" 
-                            : "border-slate-200 hover:bg-slate-50"
-                        }`}
+                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${qrType === "url"
+                          ? "bg-slate-100 border-slate-300"
+                          : "border-slate-200 hover:bg-slate-50"
+                          }`}
                       >
                         <LinkIcon className="h-4 w-4" />
                         <span className="text-sm">URL</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => {
                           setQrType("wifi");
                           setQrContent("WIFI:S:EXON;T:WPA;P:exon123;;");
                         }}
-                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                          qrType === "wifi" 
-                            ? "bg-slate-100 border-slate-300" 
-                            : "border-slate-200 hover:bg-slate-50"
-                        }`}
+                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${qrType === "wifi"
+                          ? "bg-slate-100 border-slate-300"
+                          : "border-slate-200 hover:bg-slate-50"
+                          }`}
                       >
                         <Wifi className="h-4 w-4" />
                         <span className="text-sm">Wi-Fi</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => {
                           setQrType("text");
                           setQrContent("Hello, world!");
                         }}
-                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                          qrType === "text" 
-                            ? "bg-slate-100 border-slate-300" 
-                            : "border-slate-200 hover:bg-slate-50"
-                        }`}
+                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${qrType === "text"
+                          ? "bg-slate-100 border-slate-300"
+                          : "border-slate-200 hover:bg-slate-50"
+                          }`}
                       >
                         <KeyRound className="h-4 w-4" />
                         <span className="text-sm">Text</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => {
                           setQrType("email");
                           setQrContent("hello@exon.dev");
                         }}
-                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                          qrType === "email" 
-                            ? "bg-slate-100 border-slate-300" 
-                            : "border-slate-200 hover:bg-slate-50"
-                        }`}
+                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${qrType === "email"
+                          ? "bg-slate-100 border-slate-300"
+                          : "border-slate-200 hover:bg-slate-50"
+                          }`}
                       >
                         <Mail className="h-4 w-4" />
                         <span className="text-sm">Email</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => {
                           setQrType("phone");
                           setQrContent("+1 (123) 456-7890");
                         }}
-                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                          qrType === "phone" 
-                            ? "bg-slate-100 border-slate-300" 
-                            : "border-slate-200 hover:bg-slate-50"
-                        }`}
+                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${qrType === "phone"
+                          ? "bg-slate-100 border-slate-300"
+                          : "border-slate-200 hover:bg-slate-50"
+                          }`}
                       >
                         <Phone className="h-4 w-4" />
                         <span className="text-sm">Phone</span>
                       </button>
-                      <button 
+                      <button
                         onClick={() => {
                           setQrType("location");
                           setQrContent("37.7749,-122.4194");
                         }}
-                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                          qrType === "location" 
-                            ? "bg-slate-100 border-slate-300" 
-                            : "border-slate-200 hover:bg-slate-50"
-                        }`}
+                        className={`flex items-center justify-center gap-2 p-3 rounded-lg border ${qrType === "location"
+                          ? "bg-slate-100 border-slate-300"
+                          : "border-slate-200 hover:bg-slate-50"
+                          }`}
                       >
                         <MapPin className="h-4 w-4" />
                         <span className="text-sm">Location</span>
                       </button>
                     </div>
                   </div>
-                  
+
                   {/* URL Input (shown when URL type is selected) */}
                   {qrType === "url" && (
                     <div className="space-y-2">
@@ -452,7 +459,7 @@ export default function App() {
                       </div>
                     </div>
                   )}
-                  
+
                   {/* Wi-Fi Input (shown when Wi-Fi type is selected) */}
                   {qrType === "wifi" && (
                     <div className="space-y-4">
@@ -466,7 +473,7 @@ export default function App() {
                           placeholder="Your Wi-Fi Network"
                         />
                       </div>
-                      
+
                       <div className="space-y-2">
                         <label htmlFor="password" className="block text-sm font-medium text-slate-700">Password</label>
                         <div className="relative">
@@ -479,7 +486,7 @@ export default function App() {
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <label className="block text-sm font-medium text-slate-700">Security Type</label>
                         <select className="block w-full px-3 py-2 sm:text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-slate-500" defaultValue="WPA/WPA2">
@@ -490,7 +497,7 @@ export default function App() {
                       </div>
                     </div>
                   )}
-                  
+
                   {/* Text Input (shown when Text type is selected) */}
                   {qrType === "text" && (
                     <div className="space-y-2">
@@ -512,7 +519,7 @@ export default function App() {
                       <p className="text-xs text-slate-500">Enter any text you want to encode in the QR code.</p>
                     </div>
                   )}
-                  
+
                   {/* Email Input (shown when Email type is selected) */}
                   {qrType === "email" && (
                     <div className="space-y-4">
@@ -535,7 +542,7 @@ export default function App() {
                       </div>
                     </div>
                   )}
-                  
+
                   {/* Phone Input (shown when Phone type is selected) */}
                   {qrType === "phone" && (
                     <div className="space-y-2">
@@ -557,7 +564,7 @@ export default function App() {
                       <p className="text-xs text-slate-500">Include country code for international numbers (e.g., +1 for US).</p>
                     </div>
                   )}
-                  
+
                   {/* Location Input (shown when Location type is selected) */}
                   {qrType === "location" && (
                     <div className="space-y-4">
@@ -582,20 +589,20 @@ export default function App() {
                     </div>
                   )}
                 </section>
-                
+
                 {/* Design Section */}
                 <section className="space-y-6">
                   <h3 className="text-lg font-semibold text-slate-800 pb-2 border-b border-slate-200">QR Code Design</h3>
-                  
+
                   {/* Colors */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-slate-700">Colors</h4>
-                    
+
                     <div className="space-y-2">
                       <label className="block text-xs text-slate-500">Foreground Color</label>
                       <div className="flex items-center gap-2">
                         <div className="relative" ref={fgColorPickerRef}>
-                          <button 
+                          <button
                             type="button"
                             className="h-8 w-8 rounded-md border border-slate-300 cursor-pointer p-0 overflow-hidden flex items-center justify-center"
                             onClick={() => setShowFgColorPicker(!showFgColorPicker)}
@@ -607,7 +614,7 @@ export default function App() {
                               </span>
                             )}
                           </button>
-                          
+
                           {showFgColorPicker && (
                             <div className="absolute left-0 top-10 z-10 shadow-xl border border-slate-200 rounded-md bg-white p-3 w-96 animate-in fade-in duration-200">
                               <div>
@@ -635,27 +642,27 @@ export default function App() {
                                     </button>
                                   ))}
                                 </div>
-                                
+
                                 <div className="flex flex-col space-y-2">
                                   <div className="text-xs text-slate-500">All Colors</div>
                                   <div className="grid grid-cols-10 gap-1.5">
-                                    {['#000000', '#5c5c5c', '#8a8a8a', '#cfcfcf', '#ffffff', 
+                                    {['#000000', '#5c5c5c', '#8a8a8a', '#cfcfcf', '#ffffff',
                                       '#ff0000', '#ff8700', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#8a2be2', '#ff00ff',
                                       '#800000', '#8b4513', '#808000', '#008000', '#008080', '#000080', '#4b0082', '#800080',
                                       '#1a1a1a', '#4d4d4d', '#808080', '#bfbfbf', '#f2f2f2',
                                       '#ff4d4d', '#ffa64d', '#ffff4d', '#4dff4d', '#4dffff', '#4d4dff', '#a64dff', '#ff4dff'].map(color => (
-                                      <button
-                                        key={color}
-                                        className={`h-6 w-6 rounded-sm border ${foregroundColor === color ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-300'} cursor-pointer hover:scale-110 transition-transform`}
-                                        style={{ backgroundColor: color }}
-                                        onClick={() => {
-                                          setForegroundColor(color);
-                                        }}
-                                      />
-                                    ))}
+                                        <button
+                                          key={color}
+                                          className={`h-6 w-6 rounded-sm border ${foregroundColor === color ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-300'} cursor-pointer hover:scale-110 transition-transform`}
+                                          style={{ backgroundColor: color }}
+                                          onClick={() => {
+                                            setForegroundColor(color);
+                                          }}
+                                        />
+                                      ))}
                                   </div>
                                 </div>
-                                
+
                                 <div className="flex items-center gap-2 mt-3">
                                   <input
                                     type="color"
@@ -682,12 +689,12 @@ export default function App() {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <label className="block text-xs text-slate-500">Background Color</label>
                       <div className="flex items-center gap-2">
                         <div className="relative" ref={bgColorPickerRef}>
-                          <button 
+                          <button
                             type="button"
                             className="h-8 w-8 rounded-md border border-slate-300 cursor-pointer p-0 overflow-hidden flex items-center justify-center"
                             onClick={() => setShowBgColorPicker(!showBgColorPicker)}
@@ -699,7 +706,7 @@ export default function App() {
                               </span>
                             )}
                           </button>
-                          
+
                           {showBgColorPicker && (
                             <div className="absolute left-0 top-10 z-10 shadow-xl border border-slate-200 rounded-md bg-white p-3 w-96 animate-in fade-in duration-200">
                               <div>
@@ -727,27 +734,27 @@ export default function App() {
                                     </button>
                                   ))}
                                 </div>
-                                
+
                                 <div className="flex flex-col space-y-2">
                                   <div className="text-xs text-slate-500">All Colors</div>
                                   <div className="grid grid-cols-10 gap-1.5">
-                                    {['#000000', '#5c5c5c', '#8a8a8a', '#cfcfcf', '#ffffff', 
+                                    {['#000000', '#5c5c5c', '#8a8a8a', '#cfcfcf', '#ffffff',
                                       '#ff0000', '#ff8700', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#8a2be2', '#ff00ff',
                                       '#800000', '#8b4513', '#808000', '#008000', '#008080', '#000080', '#4b0082', '#800080',
                                       '#1a1a1a', '#4d4d4d', '#808080', '#bfbfbf', '#f2f2f2',
                                       '#ff4d4d', '#ffa64d', '#ffff4d', '#4dff4d', '#4dffff', '#4d4dff', '#a64dff', '#ff4dff'].map(color => (
-                                      <button
-                                        key={color}
-                                        className={`h-6 w-6 rounded-sm border ${backgroundColor === color ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-300'} cursor-pointer hover:scale-110 transition-transform`}
-                                        style={{ backgroundColor: color }}
-                                        onClick={() => {
-                                          setBackgroundColor(color);
-                                        }}
-                                      />
-                                    ))}
+                                        <button
+                                          key={color}
+                                          className={`h-6 w-6 rounded-sm border ${backgroundColor === color ? 'border-slate-500 ring-2 ring-slate-400' : 'border-slate-300'} cursor-pointer hover:scale-110 transition-transform`}
+                                          style={{ backgroundColor: color }}
+                                          onClick={() => {
+                                            setBackgroundColor(color);
+                                          }}
+                                        />
+                                      ))}
                                   </div>
                                 </div>
-                                
+
                                 <div className="flex items-center gap-2 mt-3">
                                   <input
                                     type="color"
@@ -775,11 +782,11 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* QR Background Settings */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-slate-700">QR Background Settings</h4>
-                    
+
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <label className="block text-sm font-medium text-slate-700">Background Padding</label>
@@ -799,7 +806,7 @@ export default function App() {
                         Add padding around the QR code for better visibility.
                       </p>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <label className="block text-sm font-medium text-slate-700">Border Radius</label>
@@ -820,33 +827,33 @@ export default function App() {
                       </p>
                     </div>
                   </div>
-                  
+
                   {/* Style */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-slate-700">Style</h4>
-                    
+
                     <div className="space-y-2">
                       <label className="block text-xs text-slate-500">Pattern Style</label>
                       <div className="grid grid-cols-4 gap-2">
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${patternStyle === 'square' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setPatternStyle('square')}
                         >
                           <div className="h-6 w-6 bg-slate-900 rounded-sm"></div>
                         </div>
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${patternStyle === 'dots' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setPatternStyle('dots')}
                         >
                           <div className="h-6 w-6 bg-slate-900 rounded-full"></div>
                         </div>
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${patternStyle === 'rounded' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setPatternStyle('rounded')}
                         >
                           <div className="h-6 w-6 bg-slate-900 rounded-md"></div>
                         </div>
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${patternStyle === 'classy' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setPatternStyle('classy')}
                         >
@@ -854,23 +861,23 @@ export default function App() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <label className="block text-xs text-slate-500">Corner Style</label>
                       <div className="grid grid-cols-3 gap-2">
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${cornerStyle === 'square' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setCornerStyle('square')}
                         >
                           <div className="h-6 w-6 border-4 border-slate-900 bg-transparent"></div>
                         </div>
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${cornerStyle === 'extra-rounded' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setCornerStyle('extra-rounded')}
                         >
                           <div className="h-6 w-6 border-4 border-slate-900 rounded-md bg-transparent"></div>
                         </div>
-                        <div 
+                        <div
                           className={`h-12 w-full rounded-md border ${cornerStyle === 'dot' ? 'border-slate-500 bg-slate-50' : 'border-slate-300'} flex items-center justify-center cursor-pointer`}
                           onClick={() => setCornerStyle('dot')}
                         >
@@ -879,17 +886,17 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Logo/Image */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-slate-700">Logo/Image</h4>
-                    
+
                     <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center">
                       <div className="flex flex-col items-center">
                         {logoImage ? (
                           <div className="mb-2">
                             <img src={logoImage} alt="Logo" className="h-16 w-16 object-contain" />
-                            <button 
+                            <button
                               onClick={() => setLogoImage(undefined)}
                               className="mt-2 text-xs text-red-500 hover:text-red-700"
                             >
@@ -902,9 +909,9 @@ export default function App() {
                         <p className="text-sm text-slate-500 mb-2">Drag and drop an image, or</p>
                         <label className="px-3 py-1.5 bg-slate-100 border border-slate-300 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-200 transition-colors cursor-pointer">
                           Browse Files
-                          <input 
-                            type="file" 
-                            className="hidden" 
+                          <input
+                            type="file"
+                            className="hidden"
                             accept="image/*"
                             onChange={handleLogoUpload}
                           />
@@ -912,18 +919,17 @@ export default function App() {
                         <p className="text-xs text-slate-400 mt-2">PNG, JPG, SVG (max 2MB)</p>
                       </div>
                     </div>
-                    
+
                     {logoImage && (
                       <div className="space-y-4">
                         <div className="space-y-2">
                           <label className="block text-sm font-medium text-slate-700">Logo Padding</label>
                           <div className="grid grid-cols-3 gap-2">
                             <button
-                              className={`flex items-center justify-center gap-2 p-2 rounded-lg border ${
-                                logoPaddingPreset === 'none' 
-                                  ? 'bg-slate-100 border-slate-500 font-medium' 
-                                  : 'border-slate-300 hover:bg-slate-50'
-                              }`}
+                              className={`flex items-center justify-center gap-2 p-2 rounded-lg border ${logoPaddingPreset === 'none'
+                                ? 'bg-slate-100 border-slate-500 font-medium'
+                                : 'border-slate-300 hover:bg-slate-50'
+                                }`}
                               onClick={() => setLogoPaddingPreset('none')}
                             >
                               <div className="h-6 w-6 flex items-center justify-center">
@@ -932,11 +938,10 @@ export default function App() {
                               <span className="text-xs">No Padding</span>
                             </button>
                             <button
-                              className={`flex items-center justify-center gap-2 p-2 rounded-lg border ${
-                                logoPaddingPreset === 'minimal' 
-                                  ? 'bg-slate-100 border-slate-500 font-medium' 
-                                  : 'border-slate-300 hover:bg-slate-50'
-                              }`}
+                              className={`flex items-center justify-center gap-2 p-2 rounded-lg border ${logoPaddingPreset === 'minimal'
+                                ? 'bg-slate-100 border-slate-500 font-medium'
+                                : 'border-slate-300 hover:bg-slate-50'
+                                }`}
                               onClick={() => setLogoPaddingPreset('minimal')}
                             >
                               <div className="h-6 w-6 flex items-center justify-center bg-white rounded-sm">
@@ -945,11 +950,10 @@ export default function App() {
                               <span className="text-xs">Minimal</span>
                             </button>
                             <button
-                              className={`flex items-center justify-center gap-2 p-2 rounded-lg border ${
-                                logoPaddingPreset === 'standard' 
-                                  ? 'bg-slate-100 border-slate-500 font-medium' 
-                                  : 'border-slate-300 hover:bg-slate-50'
-                              }`}
+                              className={`flex items-center justify-center gap-2 p-2 rounded-lg border ${logoPaddingPreset === 'standard'
+                                ? 'bg-slate-100 border-slate-500 font-medium'
+                                : 'border-slate-300 hover:bg-slate-50'
+                                }`}
                               onClick={() => setLogoPaddingPreset('standard')}
                             >
                               <div className="h-6 w-6 flex items-center justify-center bg-white rounded-sm">
@@ -960,7 +964,7 @@ export default function App() {
                           </div>
                           <p className="text-xs text-slate-500">Select padding around your logo for better visibility and scanning.</p>
                         </div>
-                        
+
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
                             <label className="block text-sm font-medium text-slate-700">Logo Size</label>
@@ -989,11 +993,11 @@ export default function App() {
                     )}
                   </div>
                 </section>
-                
+
                 {/* Advanced Section */}
                 <section className="space-y-6">
                   <h3 className="text-lg font-semibold text-slate-800 pb-2 border-b border-slate-200">Advanced Settings</h3>
-                  
+
                   {/* Error Correction */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -1003,9 +1007,9 @@ export default function App() {
                         <span>What's this?</span>
                       </button>
                     </div>
-                    
-                    <select 
-                      className="block w-full px-3 py-2 sm:text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-slate-500" 
+
+                    <select
+                      className="block w-full px-3 py-2 sm:text-sm border border-slate-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
                       defaultValue="Quartile (25%)"
                       onChange={handleErrorCorrectionChange}
                     >
@@ -1016,7 +1020,7 @@ export default function App() {
                     </select>
                     <p className="text-xs text-slate-500">Higher correction allows for more damage to the code while remaining scannable.</p>
                   </div>
-                  
+
                   {/* Display Size */}
                   <div className="space-y-2">
                     <label className="block text-sm font-medium text-slate-700">Display Size</label>
@@ -1032,7 +1036,7 @@ export default function App() {
                       <span className="text-sm font-medium w-12 text-right">{rangeSize}px</span>
                     </div>
                   </div>
-                  
+
                   {/* Download Size */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -1041,11 +1045,10 @@ export default function App() {
                         {downloadSizePresets.map((preset) => (
                           <button
                             key={preset.value}
-                            className={`text-xs px-2 py-1 rounded ${
-                              downloadSize === preset.value 
-                                ? 'bg-slate-800 text-white' 
-                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
+                            className={`text-xs px-2 py-1 rounded ${downloadSize === preset.value
+                              ? 'bg-slate-800 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              }`}
                             onClick={() => setDownloadSize(preset.value)}
                           >
                             {preset.value}px
@@ -1071,7 +1074,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          
+
           {/* Right Panel - Preview - Adjust left positioning */}
           <div className="w-full lg:w-1/2 lg:fixed lg:right-0 lg:top-16 lg:bottom-0 lg:h-[calc(100vh-64px)] lg:overflow-hidden lg:ml-[50%]"
             style={{
@@ -1090,7 +1093,7 @@ export default function App() {
               <div className="flex items-center justify-between mb-6 bg-white border-b border-slate-200 p-4 ">
                 <h2 className="text-xl font-medium">Preview</h2>
                 <div className="flex items-center gap-2">
-                  <button 
+                  <button
                     className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
                     onClick={() => setQrContent(generateQRContent())}
                   >
@@ -1101,7 +1104,7 @@ export default function App() {
                   </button>
                 </div>
               </div>
-              
+
               <div className="flex-1 flex flex-col items-center justify-center">
                 {/* QR Code Preview */}
                 <div className="relative w-full mb-10 flex items-center justify-center">
@@ -1123,19 +1126,19 @@ export default function App() {
                     qrBackgroundBorderRadius={qrBackgroundBorderRadius}
                   />
                 </div>
-                
+
                 <div className="mt-5 w-full max-w-md bg-white border border-slate-200 p-4 rounded-lg shadow-sm">
                   <div className="flex gap-2 ">
-                    <button 
+                    <button
                       className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors"
                       onClick={() => handleDownload('png')}
                     >
                       <Download className="h-5 w-5" />
                       <span>Download QR Code</span>
                     </button>
-                    
+
                     <div className="relative">
-                      <button 
+                      <button
                         className="h-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300 transition-colors"
                         onClick={toggleDownloadMenu}
                       >
@@ -1144,16 +1147,15 @@ export default function App() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </button>
-                      
+
                       {isDownloadMenuOpen && (
                         <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg z-10 border border-slate-200">
                           <ul className="py-1">
                             {downloadSizePresets.map((preset) => (
                               <li key={preset.value}>
                                 <button
-                                  className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-100 ${
-                                    downloadSize === preset.value ? 'bg-slate-50 font-medium' : ''
-                                  }`}
+                                  className={`w-full text-left px-4 py-2 text-sm hover:bg-slate-100 ${downloadSize === preset.value ? 'bg-slate-50 font-medium' : ''
+                                    }`}
                                   onClick={() => selectDownloadSize(preset.value)}
                                 >
                                   {preset.label}
@@ -1173,23 +1175,23 @@ export default function App() {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="mt-4 grid grid-cols-3 gap-2 ">
-                    <button 
+                    <button
                       className="flex flex-col items-center justify-center p-2 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors"
                       onClick={() => handleDownload('png')}
                     >
                       <span className="text-xs text-slate-500 mb-1">PNG</span>
                       <span className="text-sm font-medium">Download</span>
                     </button>
-                    <button 
+                    <button
                       className="flex flex-col items-center justify-center p-2 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors"
                       onClick={() => handleDownload('svg')}
                     >
                       <span className="text-xs text-slate-500 mb-1">SVG</span>
                       <span className="text-sm font-medium">Download</span>
                     </button>
-                    <button 
+                    <button
                       className="flex flex-col items-center justify-center p-2 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors"
                       onClick={() => handleDownload('jpeg')}
                     >
@@ -1197,16 +1199,16 @@ export default function App() {
                       <span className="text-sm font-medium">Download</span>
                     </button>
                   </div>
-                  
+
                   {/* Shareable Links Section */}
                   <div className="mt-4 pt-4 border-t border-slate-200">
                     <h4 className="text-sm font-medium text-slate-700 mb-3">Share Your QR Code</h4>
-                    
+
                     {/* Project Link */}
                     <div className="mb-3">
                       <div className="flex items-center justify-between mb-1">
                         <label className="text-xs text-slate-500">Project Link</label>
-                        <button 
+                        <button
                           className="text-xs text-slate-600 hover:text-slate-900 flex items-center gap-1"
                           onClick={() => copyToClipboard(generateProjectURL())}
                         >
@@ -1217,13 +1219,13 @@ export default function App() {
                         </button>
                       </div>
                       <div className="flex">
-                        <input 
-                          type="text" 
-                          readOnly 
-                          value={generateProjectURL()} 
+                        <input
+                          type="text"
+                          readOnly
+                          value={generateProjectURL()}
                           className="block w-full text-xs px-3 py-2 border border-slate-300 rounded-l-md bg-slate-50 text-slate-800 truncate"
                         />
-                        <button 
+                        <button
                           className="px-3 bg-slate-100 border border-l-0 border-slate-300 rounded-r-md hover:bg-slate-200 transition-colors"
                           onClick={() => window.open(generateProjectURL(), '_blank')}
                         >
