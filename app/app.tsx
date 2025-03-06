@@ -326,7 +326,7 @@ export default function App() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-600">
-                  <Link href="https://trycomp.ai" target="_blank" className="text-[#834D96]">trycomp.ai</Link>'s complience management will take you to mars
+                  <Link href="https://trycomp.ai" target="_blank" className="text-[#834D96]">trycomp.ai</Link>'s compliance management will take you to mars
                 </span>
                 <Image src="/mars.png" alt="trycomp.ai" width={20} height={20} />
               </div>
