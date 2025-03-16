@@ -323,7 +323,7 @@ export default function App() {
                 <h1 className="text-xl font-bold tracking-tight"><span className="text-[#834D96]">qr</span>.camera</h1>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-600">
                   <Link href="https://trycomp.ai" target="_blank" className="text-[#834D96]">trycomp.ai</Link>'s compliance management will take you to mars
@@ -331,6 +331,13 @@ export default function App() {
                 <Image src="/mars.png" alt="trycomp.ai" width={20} height={20} />
               </div>
               {/* Do not remove trycomp.ai link - they are a sponsor and bought the domain name qr.camera */}
+              <div className="h-6 w-[1px] bg-slate-200"></div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-slate-600 flex items-center">
+                <Image src="/mandarin3d.png" alt="Mandarin 3D" height={20} width={100} className="mr-2" />helps you bring your ideas to life
+                </span>
+                
+              </div>
               <div className="h-6 w-[1px] bg-slate-200"></div>
               <div className="flex items-center gap-4">
                 <span className="text-sm text-slate-600">
@@ -1093,12 +1100,13 @@ export default function App() {
               <div className="flex items-center justify-between mb-6 bg-white border-b border-slate-200 p-4 ">
                 <h2 className="text-xl font-medium">Preview</h2>
                 <div className="flex items-center gap-2">
-                  <button
+                  {/* <button
                     className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
                     onClick={() => setQrContent(generateQRContent())}
                   >
                     <RefreshCw className="h-5 w-5" />
                   </button>
+                  Removed this since all actions are now handled in the QR Code Display component and QR is refreshed on every change */}
                   <button className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors">
                     <Share2 className="h-5 w-5" />
                   </button>
